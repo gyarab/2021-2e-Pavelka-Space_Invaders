@@ -23,7 +23,6 @@ Zpet_Button = pygame.Rect(Okno_Sirka / 2 - 20, 2, 20, 20)
 Zpet = pygame.image.load("Zpet.png").convert_alpha()
 Zpet = pygame.transform.scale(Zpet, (20, 20))
 
-#FPS
 FPS = 60
 Hodiny = pygame.time.Clock()
 
