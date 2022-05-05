@@ -16,7 +16,7 @@ Pozadi_Hry = pygame.transform.scale(Pozadi_Hry, (Okno_Sirka, Okno_vyska))
 StylNadpisu = pygame.font.Font("freesansbold.ttf", 75)
 Nadpis = StylNadpisu.render("SPACE INVADERS", True, (0, 255, 255))
 
-Start_Button = pygame.Rect(250, 250, 300, 100)
+Start_Button = pygame.Rect(250, 250, 300, 100)D
 Styl = pygame.font.Font("freesansbold.ttf", 50)
 Start_Text = Styl.render("START", True, (0, 0, 0))
 
