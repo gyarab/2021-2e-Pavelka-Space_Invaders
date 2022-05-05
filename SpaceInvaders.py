@@ -16,7 +16,7 @@ Pozadi_Hry = pygame.transform.scale(Pozadi_Hry, (Okno_Sirka, Okno_vyska))
 StylNadpisu = pygame.font.Font("freesansbold.ttf", 75)
 Nadpis = StylNadpisu.render("SPACE INVADERS", True, (0, 255, 255))
 
-Start_Button = pygame.Rect(250, 250, 300, 100)D
+Start_Button = pygame.Rect(250, 250, 300, 100)
 Styl = pygame.font.Font("freesansbold.ttf", 50)
 Start_Text = Styl.render("START", True, (0, 0, 0))
 
@@ -96,6 +96,7 @@ class Nepritel(pygame.Rect):
         a.rychlost = 4
         a.zmena = 50
         a.z = random.randint(0, 1)
+        a.muzu = True
         if a.z == 0:
             a.smer = "doprava"
         else:
@@ -115,7 +116,9 @@ class Nepritel(pygame.Rect):
 
     def tezsi(a):
         if Skore % 15 == 0 and Skore > 0:
-            a.rychlost += 3
+            if a.muzu:
+                a.rychlost += 3
+                a.muzu = False
 
     def zasah(a):
         global Skore, StrelaY, StrelaRychlost, StatusStrely, vytvorit
@@ -150,10 +153,11 @@ def Prohra():
     global Prohrals, NejlepsiSkore
     for i in nepratele:
         if i.y >= (Okno_vyska - 100):
-            Prohrals = True
-            i.rychlost = 0
-            i.zmena = 2
             HudbaProhry()
+            Prohrals = True
+            for j in nepratele:
+                j.rychlost = 0
+                j.zmena = 2
     if Prohrals:
         pygame.draw.rect(Okno, (255, 255, 255), Znovu_Button, 0, 30)
         Okno.blit(Prohra_Text, (305, 275))
@@ -227,11 +231,11 @@ while Jede:
             i.tezsi()
         Prohra()
 
-        if Klavesa[pygame.K_LEFT] and RaketkaX >= 0:
+        if Klavesa[pygame.K_LEFT] and RaketkaX >= 0 and Prohrals == False:
             RaketkaX -= RaketkaRychlost
-        if Klavesa[pygame.K_RIGHT] and RaketkaX <= (Okno_Sirka - 50):
+        if Klavesa[pygame.K_RIGHT] and RaketkaX <= (Okno_Sirka - 50) and Prohrals == False:
             RaketkaX += RaketkaRychlost
-        if Klavesa[pygame.K_SPACE]:
+        if Klavesa[pygame.K_SPACE] and Prohrals == False:
             if StatusStrely == "pripravena":
                 ZvukVystrelu.play()
                 ZvukVystrelu.set_volume(0.1)
