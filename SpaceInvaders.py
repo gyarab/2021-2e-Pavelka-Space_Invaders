@@ -1,4 +1,3 @@
-
 import pygame, random
 
 pygame.init()
